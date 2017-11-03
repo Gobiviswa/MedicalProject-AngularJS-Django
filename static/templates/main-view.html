@@ -1,0 +1,45 @@
+<br><br>
+<div class="container" >
+
+	<div ng-repeat="(key,invoice) in orderlist">
+		<div class="panel panel-info"   data-toggle="collapse" data-target="#[[$index]]" style="width: 850px;cursor: pointer;">
+			<table class="table table-hover">
+				<tr>
+					<th>Slip No : [[ key.split('_')[0] ]]</th>
+ 					<th>Total Amount : [[ key.split('_')[1] ]]</th>
+ 					<th>Date : [[ key.split('_')[2] ]]</th>
+ 					<th>Time : [[ key.split('_')[3] ]]</th>
+				</tr>
+			</table>
+		</div>
+		<div class="collapse" id="[[$index]]">
+			
+				<table class="table table-condensed table-hover" 
+					   style="width: 750px;padding:15px 15px 5px 15px;box-shadow:  0px 2px 14px 5px #dadada;margin-top:10px;border-radius:6px;">
+					<tr>
+						<th>S.No</th>
+						<th>Medicine Name</th>
+						<th>Cost</th>
+						<th>Qty</th>
+						<th>Price</th>
+					</tr>
+					<tr ng-repeat="row in invoice">
+						<th>[[ $index + 1 ]]</th>
+						<th>[[ row.medicineName ]]</th>
+						<th>[[ row.price ]]</th>
+						<th>[[ row.qtyRequired ]]</th>
+						<th>[[ row.cost]]</th>
+					</tr>
+					<tr>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th>Total :</th>
+						<th>[[ key.split('_')[1] ]]</th>
+					</tr>
+
+				</table>
+			
+		</div>
+	</div>
+</div>

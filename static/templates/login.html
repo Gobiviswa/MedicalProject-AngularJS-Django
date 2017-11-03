@@ -1,0 +1,36 @@
+
+
+
+
+	<div class="container">
+		<h2>Medical Billing API</h2> 
+	
+		<div class="panel panel-default">
+			<div class="panel-header">
+				<h3>Login Here</h3>
+			</div>
+			<div class="panel-body">
+		
+				<form name="loginForm" ng-submit="login()" enctype="multipart/form-data">
+				
+
+  					<label for="username">First Name</label>
+  					<input type="text"  ng-model="username" placeholder="Type Username Here..." autocomplete="off" required="">
+	  				<label for="password">Last Name</label>
+  					<input type="password" ng-model="password" placeholder="Type Password Here..." autocomplete="off" required=""><br><br>
+
+  					<button class="btn btn-primary btn-lg" type="submit" >Login</button>
+  					<span class="error-login" ng-show="errorBoolean" style="color:red"><b>Please provide correct credentials</b></span>	
+
+				</form>
+
+    		</div>
+		</div>
+	</div>
+
+
+
+
+
+
+

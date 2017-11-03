@@ -1,0 +1,23 @@
+<div class="container" style="margin-top: 10px">
+	
+	<b class="logged-user-style">Logged user : <span class="logged-username-style">[[globals.currentUser.username]]</span></b>   
+	<span><button class="btn btn-primary pull-right" ng-click="logoutuser()">Logout</button></span><hr/>
+
+	<div class="homeController-main-buttons">
+		<button class="btn btn-md btn-primary " style="margin-left:16px" ng-click="changeController('home')">Home</button>
+		<button class="btn btn-md btn-primary " style="margin-left:16px" ng-click="changeController('view')">View Recent Invoices</button>
+		<button class="btn btn-md btn-primary " style="margin-left:16px" ng-click="changeController('create')">Create Invoice</button>
+	</div>
+	<div ui-view></div>
+</div>
+
+
+
+
+
+
+  
+
+
+
+

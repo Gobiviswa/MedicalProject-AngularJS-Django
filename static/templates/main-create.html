@@ -1,0 +1,226 @@
+
+
+<form name="addRowForm" role="form" ng-submit="rowInputs()" autocomplete="off" >
+
+	<div class="row">
+
+		<div class="col-sm-8">
+			<div class="container" style="margin-top: 20px;box-shadow:  0px 2px 14px 5px #dadada;border-radius: 6px;width: 80%">
+		
+				<div class="row" style="margin-top: 10px;text-align: center;font-weight: bold">
+					<div class="col-sm-6">
+						<label for="medicineName">Medicine Name</label>
+					</div>
+					<div class="col-sm-6">
+						<label for="qtyRequired">Qty. Required</label>
+					</div>
+				</div>
+
+				<div class="row" style="margin-top: 10px">
+
+					<div class="col-sm-6 form-group" style="text-align: center;font-size: 22px;" class="dropdown">
+						<input type="text" class="form-control" name="medicineName" ng-model="medicineName" id="medicineName" required placeholder="Enter the medicine number..."  data-toggle = "dropdown">
+
+						<ul class="dropdown-menu" style="margin-left:17px">
+
+      						<div ng-repeat="medicine in medicineList | filter : medicineName | limitTo : 5">
+        						<li style="cursor: pointer;" ng-click="medicineSelect('insert', medicine)">[[ medicine ]]</li>
+        						
+        						<hr/>
+        						<li ng-if="$index > 3">more...</li>
+        					</div>
+      					</ul>
+
+					</div>
+					
+
+					<div class="col-sm-6 form-group" style="text-align: center;font-size: 22px">
+						<input type="number" class="form-control" name="qtyRequired" ng-model="qtyRequired" min="1"  required placeholder="Enter the quantity..." >
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="col-sm-4">
+			<button type="submit" class="btn btn-info btn-lg" style="margin-top: 50px">Add New Medicine</button>
+		</div>
+
+	</div>
+</form>
+
+<div class="container col-sm-12" style="margin-top:10px;width:90%;margin-left:55px" ng-show="populateBool">
+	<table class="table table-bordered table-hover">
+		<thead>
+			<tr>
+				<th>
+					<div class="col-sm-12 text-center" >
+						<div class="col-sm-1">Sl.No</div>
+						<div class="col-sm-4">Medicine Name</div>
+						<div class="col-sm-1">Price</div>
+						<div class="col-sm-2">Req Quantity</div>
+						<div class="col-sm-1">Cost</div>
+						<div class="col-sm-1"></div>
+						<div class="col-sm-2"></div>
+
+					</div>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="row in orderList">
+				<th>
+					<div class="col-sm-12 text-center">
+						<div class="col-sm-1">[[ $index + 1 ]]</div>
+						<div class="col-sm-4">[[ row.medicineName ]]</div>
+						<div class="col-sm-1">[[ row.price ]]</div>
+						<div class="col-sm-2">[[ row.qtyRequired ]]</div>
+						<div class="col-sm-1">[[ row.cost ]]</div>
+						<div class="col-sm-1 btn btn-sm btn-primary" style="width:80px;margin-left:50px" 
+							  data-toggle="modal" data-target="#editObject" ng-click="editObject(row, $index)">Edit</div>
+						<div class="col-sm-2 btn btn-sm btn-danger" style="width:80px;margin-left:20px"
+							  data-toggle="modal" data-target="#deleteObject" ng-click="deleteRow(row, $index)">Delete</div>
+
+					</div>
+				</th>
+			</tr>
+					
+		</tbody>
+	</table>
+
+	
+		<div>
+			<button class="btn btn-success pull-right" data-toggle="modal" ng-click="submitInvoice()" data-target="#submitInvoice">Submit Invoice</button>
+		</div>
+	
+
+
+	<div class="modal" id="editObject" data-backdrop="static" data-keyboard="false">
+		<div class="modal-dialog">
+			<div class="modal-content">
+			<form name="editForm" role="form" ng-submit="rowEditedInputs()" autocomplete="off">
+
+				<div class="modal-body">
+					<label for="medicineName">Medicine Name :</label>
+
+					<div class="dropdown">
+						
+						<input type="text" name="medicineName" ng-model="editMedicineName" style="height:30px" disabled>
+
+						<ul class="dropdown-menu" >
+
+      						<div ng-repeat="medicine in medicineList | filter : editMedicineName | limitTo : 5 ">
+        						<li style="cursor: pointer;" ng-click="medicineSelect('edit', medicine)">[[ medicine ]]</li>
+        						
+        						<hr/>
+        						<li ng-if="$index > 3">more...</li>
+        					</div>
+      					</ul>
+
+					</div>
+
+					<label for="qtyRequired" ">Qty Required :</label>
+					<input type="number" name="qtyRequired" ng-model="editQtyRequired" required="" style="height:30px"
+						   min="1">
+				</div>
+				<div class="modal-footer">
+					<span class="pull-left" style="color:red;font-weight:bold" ng-show="editModelErrorBool">Please enter correct medicine</span>
+					<button class="btn btn-success" type="submit">Submit</button>
+					<button class="btn btn-cancel " data-dismiss="modal">Cancel</button>
+				</div>
+			</form>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal" id="deleteObject" data-backdrop="static" data-keyboard="false">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+					Do you want to delete the Record ?
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-danger btn-lg" ng-click="deleteObject()">Yes</button>
+					<button class="btn btn-success btn-lg" data-dismiss="modal">No</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal" id="submitInvoice" data-backdrop="static" data-keyboard="false">
+		<div class="modal-dialog" style="width:800px">
+			<div class="modal-content">
+				<div class="modal-body">
+					<h3 class="text-center">Invoice</h3><br>
+					<table class="table">
+						
+						<thead>
+							<tr>
+								<th>Sl.No</th>
+								<th>Medicine</th>
+								<th>Price</th>
+								<th>Req.Quantity</th>
+								<th>Cost</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="row in orderList">
+								<td> [[ row.medicineNo ]]</td>
+								<td> [[ row.medicineName ]]</td>
+								<td> [[ row.price ]]</td>
+								<td> [[ row.qtyRequired]]</td>
+								<td> [[ row.cost ]]</td>
+							</tr>
+							<<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td style="font-weight:bold">Total</td>
+								<td> [[ total ]]</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="modal-footer">
+						<button class="btn btn-success btn-lg" ng-click="submitToDB()">Submit Invoice</button>
+						<button class="btn btn-danger btn-lg pull-right" data-dismiss="modal"> Cancel</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- <table class="table table-condensed table-bordered table-hover" style="width:70%">
+		<thead>
+			<tr >
+				<th>
+					<div class="col-sm-9 text-center" >
+						<div class="col-sm-2">Sl.No</div>
+						<div class="col-sm-2">Medicine Name</div>
+						<div class="col-sm-2">Medicine Price</div>
+						<div class="col-sm-2">Req Quantity</div>
+						<div class="col-sm-2">Cost</div>
+						<div class="col-sm-2">Total</div>
+						
+					</div>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="row in orderList" >
+				<th>
+					<div class="col-sm-12 text-center" style="height:25px">
+						<div class="col-sm-2">[[ row.medicineNo ]]</div>
+						<div class="col-sm-2">[[ row.medicineName ]]</div>
+						<div class="col-sm-2">0</div>
+						<div class="col-sm-2">[[ row.qtyRequired ]]</div>
+						<div class="col-sm-2">0</div>
+						<div class="col-sm-2">0</div>
+						
+
+				</th>
+
+			</tr>
+		</tbody>
+	</table>  -->
