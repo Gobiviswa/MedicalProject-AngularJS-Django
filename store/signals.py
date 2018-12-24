@@ -5,6 +5,7 @@ from .models import Store, lowCountMedicineList
 
 @receiver(pre_save, sender=Store)
 def ensure_low_count_medicines_update_store_update(sender, **kwargs):
+	print("Signals...")
 	medicine_count = kwargs['instance'].medicine_count
 	medicine_name = kwargs['instance'].medicine_name
 	if (medicine_count > 15):
