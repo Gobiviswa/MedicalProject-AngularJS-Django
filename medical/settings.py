@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'order',
     'store',
+    'django_jenkins'
 ]
 
 MIDDLEWARE = [
@@ -51,6 +52,11 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+JENKINS_TASKS = (
+    'django_jenkins.tasks.run_pep8',
+    'django_jenkins.tasks.run_pyflakes',
+)
 
 ROOT_URLCONF = 'medical.urls'
 
