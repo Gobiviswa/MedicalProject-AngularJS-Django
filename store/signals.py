@@ -7,10 +7,7 @@ from .models import Store, lowCountMedicineList
 def ensure_low_count_medicines_update_store_update(sender, **kwargs):
 	medicine_count = kwargs['instance'].medicine_count
 	medicine_name = kwargs['instance'].medicine_name
-	print("insdie signal Store")
-	print(medicine_count)
 	if (medicine_count > 15):
-		print("inside function")
 		data = lowCountMedicineList.objects.all().order_by('-id').filter(low_count_medicine_name=medicine_name)
 		
 		if(data):
